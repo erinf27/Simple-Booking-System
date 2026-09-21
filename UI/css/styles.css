@@ -1,0 +1,80 @@
+h1 {
+    color: #F2F7F2;
+    font-size: 28px;
+    text-align: center;
+    /* display: inline-block;
+    border: 2px solid black; */
+    /* margin: 0; */
+}
+
+h2 {
+    color: #F2F7F2;
+    font-size: 24px;
+    text-align: center;
+}
+
+p {
+    color: #F2F7F2;
+    line-height: 1.5;
+}
+
+.mainbody {
+    background-color: #363537;
+}
+
+/* Style the pop-up box itself */
+dialog {
+  padding: 20px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  text-align: center;
+  background-color: #363537;
+}
+
+/* Style the darkened background (backdrop) */
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  /* border: 1px solid #dddddd; */
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.submitBtn {
+    box-shadow: 10px;
+    border: none;
+    background: #2c2e31;
+    border-radius: 15px;
+    align-content: center;
+    outline: none;
+    color:#e2b714;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration:  none;
+    padding: 15px;
+    display: block;
+    text-align: center;
+    width: 300px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.submitBtn:hover {
+    color: #F2F7F2;
+}
