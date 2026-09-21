@@ -41,18 +41,26 @@ dialog::backdrop {
 
 table {
         border-collapse: separate;
-        border-spacing: 0;
+        border-spacing: 20;
         table-layout: fixed;
         width: 100%;
         max-width: 800px;
+        max-height: 800px;
+        align-content: center;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
     }
     
     th {
+        font-family: Arial, Helvetica, sans-serif;
         padding: 10px;
-        background: #f5f5f5;
+        color: #e2b714;
+        background: #2c2e31;
+        border-radius: 25px;
         font-weight: normal;
-        font-size: 13px;
-        border: 1px solid #ddd;
+        font-size: 15px;
+        /* border: 1px solid #ddd; */
     }
     
     td {
@@ -64,11 +72,11 @@ table {
     .slot {
         display: block;
         width: 100%;
-        height: 60px;
+        height: 80px;
         padding: 0;
         margin: 0;
         border: 1px solid #fff;
-        background: #d4edda;
+        background: #FAF7EA;
         cursor: pointer;
         box-sizing: border-box;
         transition: filter 0.15s;
@@ -80,7 +88,7 @@ table {
     
     .slot.booked { background: #f8d7da; }
     .slot.broken { background: #fff3cd; cursor: not-allowed; }
-    .slot.mine   { background: #cce5ff; }
+    .slot.mine   { background: #e2b714; }
 
 .submitBtn {
     box-shadow: 10px;

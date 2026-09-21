@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Laundry Booking</title>
+        <link rel="stylesheet" href = "css/navbar.css">
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body class = "mainbody">
+        <nav class="navbar">
+            <ul>
+                <li><button id="dateBtn">Date</button></li>
+                <li><a href="#Washing">Washing Machines</a></li>
+                <li><a href="#Drying">Dryers</a></li>
+            </ul>
+        </nav>
+        <dialog id="popupDate">
+            <h2>Pick a Date</h2>
+            <p>Date for when you want to do washing, current date will be default</p>
+            <input type="date" id="bookDate" min="2026-03-01">
+            <!-- Button to close the pop-up -->
+            <button id="closeBtn">Close</button>
+        </dialog>
+        <br>
+        <div class = "washing">
+            <h1 id="Washing">Washing Machines</h1>
+            <!-- <h2>Time slots:</h2> -->
+            <table id="grid">
+                <thead>
+                    <tr>
+                        <th style="width: 80px;"></th>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                        <th>6</th>
+                        <th>7</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+        </table>
+        </div>
+        
+
+
+
+
+        <div class = "dryer">
+            <h1 id="Drying">Dryers</h1>
+            <!-- <h2>Time slots:</h2> -->
+            <table id="grid">
+                <thead>
+                    <tr>
+                        <th style="width: 80px;"></th>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                        <th>6</th>
+                        <th>7</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <br>
+        <br>
+        <button class="submitBtn" type="submit">Submit</button>
+
+        <script src="js/booking.js"></script>
+    </body>
+</html>
