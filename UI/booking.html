@@ -1,33 +1,46 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Laundry Booking</title>
-        <link rel="stylesheet" href = "css/navbar.css">
-        <link rel="stylesheet" href="css/styles.css">
-    </head>
-    <body class = "mainbody">
-        <nav class="navbar">
-            <ul>
-                <li><button id="dateBtn">Date</button></li>
-                <li><a href="#Washing">Washing Machines</a></li>
-                <li><a href="#Drying">Dryers</a></li>
-            </ul>
-        </nav>
-        <dialog id="popupDate">
-            <h2>Pick a Date</h2>
-            <p>Date for when you want to do washing, current date will be default</p>
-            <input type="date" id="bookDate" min="2026-03-01">
-            <!-- Button to close the pop-up -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laundry Booking</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="mainbody">
+    <nav class="navbar">
+        <ul>
+            <li><button id="dateBtn">Date: <span id="currentDateDisplay">Today</span></button></li>
+            <li><a href="#Washing">Washing Machines</a></li>
+            <li><a href="#Drying">Dryers</a></li>
+        </ul>
+    </nav>
+
+    <dialog id="popupDate">
+        <h2>Pick a Date</h2>
+        <p>Select a day for your laundry booking.</p>
+        
+        <div class="date-shortcuts">
+            <button type="button" class="shortcut-btn" data-offset="0">Today</button>
+            <button type="button" class="shortcut-btn" data-offset="1">Tomorrow</button>
+            <button type="button" class="shortcut-btn" data-offset="2">In 2 Days</button>
+        </div>
+
+        <input type="date" id="bookDate" min="2026-03-01">
+        
+        <div class="modal-actions">
             <button id="closeBtn">Close</button>
-        </dialog>
-        <br>
-        <div class = "washing">
-            <h1 id="Washing">Washing Machines</h1>
-            <!-- <h2>Time slots:</h2> -->
-            <table id="grid">
+        </div>
+    </dialog>
+
+    <div class="content-wrapper">
+        <!-- Added section-heading class for scroll margin -->
+        <div class="washing" id="Washing">
+            <h1 class="section-heading">Washing Machines</h1>
+            <table id="washing-grid" class="sticky-header">
                 <thead>
                     <tr>
-                        <th style="width: 80px;"></th>
+                        <th style="width: 60px; font-size: 13px;"></th> <!-- Slightly smaller time column -->
                         <th>1</th>
                         <th>2</th>
                         <th>3</th>
@@ -38,20 +51,15 @@
                     </tr>
                 </thead>
                 <tbody></tbody>
-        </table>
+            </table>
         </div>
         
-
-
-
-
-        <div class = "dryer">
-            <h1 id="Drying">Dryers</h1>
-            <!-- <h2>Time slots:</h2> -->
-            <table id="grid">
+        <div class="dryer" id="Drying">
+            <h1 class="section-heading">Dryers</h1>
+            <table id="dryer-grid" class="sticky-header">
                 <thead>
                     <tr>
-                        <th style="width: 80px;"></th>
+                        <th style="width: 60px; font-size: 13px;"></th>
                         <th>1</th>
                         <th>2</th>
                         <th>3</th>
@@ -65,10 +73,11 @@
             </table>
         </div>
 
-        <br>
-        <br>
-        <button class="submitBtn" type="submit">Submit</button>
+        <div class="submit-container">
+            <button class="submitBtn" type="submit">Submit Booking</button>
+        </div>
+    </div>
 
-        <script src="js/booking.js"></script>
-    </body>
+    <script src="js/booking.js"></script>
+</body>
 </html>

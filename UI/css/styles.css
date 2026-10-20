@@ -10,19 +10,16 @@ body.mainbody {
     background: #e2e2e2; 
     color: #5e5e5e; 
     min-height: 100vh;
-    /* Add scroll padding so sticky navbar doesn't cover section titles */
     scroll-padding-top: 100px; 
 }
 
 /* --- Center the Dialog --- */
 dialog {
-    /* Center it perfectly in the viewport */
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     margin: 0;
-    
     padding: 30px 20px;
     border: 2px solid #d1d1d1;
     border-radius: 12px;
@@ -37,7 +34,6 @@ dialog::backdrop {
     backdrop-filter: blur(3px);
 }
 
-/* Date Shortcuts inside Modal */
 .date-shortcuts {
     display: flex;
     gap: 8px;
@@ -100,89 +96,85 @@ dialog input[type="date"]:focus {
 
 /* --- Main Content Layout --- */
 .content-wrapper {
-    padding: 20px;
-    max-width: 900px;
+    padding: 10px 16px;
+    max-width: 720px;
     margin: 0 auto;
 }
 
 h1 {
     color: #5e5e5e;
-    font-size: 28px;
+    font-size: 22px;
     text-align: center;
-    margin: 40px 0 20px 0;
+    margin: 24px 0 14px 0;
     font-weight: 600;
 }
 
 h1::after {
     content: "";
     display: block;
-    width: 56px;
-    height: 3px;
+    width: 48px;
+    height: 2px;
     background: #e2b714;
     border-radius: 10px;
-    margin: 16px auto 0;
+    margin: 10px auto 0;
 }
 
 h2 {
     color: #5e5e5e;
-    font-size: 24px;
+    font-size: 20px;
     text-align: center;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 p {
     color: #8a8a8a;
     line-height: 1.5;
-    margin-bottom: 20px;
-    font-size: 14px;
+    margin-bottom: 16px;
+    font-size: 13px;
 }
 
-/* --- Tables --- */
+/* --- Tables (Compact) --- */
 table {
     border-collapse: separate;
-    border-spacing: 8px;
+    border-spacing: 4px;
     table-layout: fixed;
     width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 th {
     font-family: inherit;
-    padding: 12px;
+    padding: 6px 4px;
     color: #e2b714;
     background: #d1d1d1;
-    border-radius: 8px;
+    border-radius: 6px;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 12px;
     text-align: center;
 }
 
-/* Make the Table Headers Sticky */
 .sticky-header thead th {
     position: sticky;
-    /* Position below the navbar */
-    top: 80px; 
+    top: 78px;
     z-index: 10;
-    /* Add a subtle bottom border to separate header from cells */
-    box-shadow: 0 4px 6px -4px rgba(0,0,0,0.1);
-    /* Ensure the background remains solid while scrolling */
-    background: #d1d1d1; 
+    box-shadow: 0 3px 4px -3px rgba(0,0,0,0.1);
+    background: #d1d1d1;
 }
 
 td {
     padding: 0;
     border: none;
-    height: 60px;
+    height: 40px;
 }
 
 .slot {
     display: block;
     width: 100%;
-    height: 70px;
+    height: 42px;
     padding: 0;
     margin: 0;
     border: 2px solid transparent;
-    border-radius: 8px;
+    border-radius: 6px;
     background: #d1d1d1;
     cursor: pointer;
     box-sizing: border-box;
@@ -199,12 +191,14 @@ td {
     color: white;
     cursor: not-allowed;
 }
+
 .slot.broken { 
     background: #8a8a8a; 
     color: white;
     cursor: not-allowed; 
 }
-.slot.mine   { 
+
+.slot.mine { 
     background: #e2b714; 
     color: #e2e2e2;
 }
@@ -212,8 +206,8 @@ td {
 /* Submit Button */
 .submit-container {
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 60px;
+    margin-top: 12px;
+    margin-bottom: 30px;
 }
 
 .submitBtn {
@@ -222,10 +216,10 @@ td {
     border-radius: 8px;
     outline: none;
     color: #e2e2e2;
-    font-size: 16px;
+    font-size: 14px;
     font-family: inherit;
     font-weight: 600;
-    padding: 15px 40px;
+    padding: 12px 32px;
     display: inline-block;
     text-align: center;
     cursor: pointer;
