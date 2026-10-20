@@ -1,5 +1,5 @@
-/* login.css - Full Screen Booking Flights Theme */
-/* COS216 PA3 - login Page Styles */
+/* login.css - Light Theme with #e2b714 Accent */
+/* Extracted palette from reference image */
 
 * {
     margin: 0;
@@ -8,14 +8,16 @@
 }
 
 body.login {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background: #10367D;
+    /* Monospace font stack matching the reference */
+    font-family: 'Roboto Mono', 'Consolas', 'Courier New', monospace;
+    background: #e2e2e2; /* Soft light gray background */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    color: #5e5e5e; /* Muted dark gray for text */
 }
 
-/* Main Container - Full Screen No Box */
+/* Main Container */
 .login-main {
     flex: 1;
     display: flex;
@@ -25,164 +27,201 @@ body.login {
     min-height: calc(100vh - 60px);
 }
 
-/* Form Container - No Box, Just Form */
+/* Form Container */
 .login-form {
     width: 100%;
-    max-width: 480px;
+    max-width: 440px;
     margin: 0 auto;
 }
 
 /* Header */
 .login-header {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 36px;
 }
 
 .login-header h2 {
-    color: white;
+    color: #5e5e5e;
     margin: 0;
     font-size: 32px;
     font-weight: 600;
     letter-spacing: -0.5px;
 }
 
-.login-header p {
-    color: rgba(255, 255, 255, 0.8);
-    margin: 8px 0 0;
-    font-size: 15px;
+.login-header h2 .accent {
+    color: #e2b714; /* The golden yellow accent */
 }
 
-/* Form Body - No Box */
-.login-body {
-    background: transparent;
+.login-header p {
+    color: #8a8a8a;
+    margin: 10px 0 0;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+}
+
+/* Accent divider under header */
+.login-header::after {
+    content: "";
+    display: block;
+    width: 56px;
+    height: 3px;
+    background: #e2b714;
+    border-radius: 10px;
+    margin: 16px auto 0;
 }
 
 /* Form Groups */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 .form-group label {
     display: block;
     margin-bottom: 8px;
-    font-weight: 500;
-    color: white;
-    font-size: 14px;
+    font-weight: 600;
+    color: #5e5e5e;
+    font-size: 13px;
+    text-transform: lowercase; /* Matches reference style */
+    letter-spacing: 0.5px;
 }
 
-.form-group input,
-.form-group select {
+.form-group label .accent-dot {
+    color: #e2b714;
+    font-weight: 700;
+}
+
+.form-group input {
     width: 100%;
     padding: 14px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid transparent;
     border-radius: 8px;
     font-size: 15px;
     font-family: inherit;
     transition: all 0.2s ease;
-    background: rgba(255, 255, 255, 0.95);
-}
-
-.form-group input:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: white;
-    background: white;
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+    background: #d1d1d1; /* Slightly darker gray for inputs */
+    color: #323437; /* Darker text for input */
+    caret-color: #e2b714;
 }
 
 .form-group input::placeholder {
-    color: #9aa0a6;
+    color: #8a8a8a;
 }
 
-/* Password Hint */
-.password-hint {
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.7);
-    margin-top: 6px;
-    margin-bottom: 6px;
+.form-group input:hover {
+    background: #c8c8c8;
 }
 
-.password-requirements {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 12px 14px;
-    border-radius: 8px;
-    margin-top: 8px;
-    font-size: 12px;
+.form-group input:focus {
+    outline: none;
+    border-color: #e2b714;
+    background: #d1d1d1;
+    box-shadow: 0 0 0 3px rgba(226, 183, 20, 0.2);
 }
 
-.password-requirements p {
-    margin: 5px 0;
-    color: rgba(255, 255, 255, 0.8);
+/* Remember me / Forgot password row */
+.form-options {
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    margin: 8px 0 4px;
+    font-size: 13px;
 }
 
-.password-requirements .valid {
-    color: #a5d6a7;
+.remember {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #5e5e5e;
+    cursor: pointer;
+    user-select: none;
 }
 
-.password-requirements .invalid {
-    color: #ef9a9a;
+.remember input[type="checkbox"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #d1d1d1;
+    border: 2px solid #b0b0b0;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
 }
 
-/* Strength Meter */
-.strength-meter {
-    height: 4px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 2px;
-    margin-top: 10px;
-    overflow: hidden;
+.remember input[type="checkbox"]:checked {
+    background: #e2b714;
+    border-color: #e2b714;
 }
 
-.strength-bar {
-    height: 100%;
-    width: 0;
-    transition: width 0.3s ease;
-}
-
-.strength-weak { background: #ef9a9a; width: 25%; }
-.strength-fair { background: #ffe082; width: 50%; }
-.strength-good { background: #90caf9; width: 75%; }
-.strength-strong { background: #a5d6a7; width: 100%; }
-
-/* Error Messages */
-.error {
-    color: #ef9a9a;
+.remember input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e2e2e2; /* Light text on yellow checkbox */
     font-size: 12px;
-    margin-top: 5px;
-    display: block;
+    font-weight: 800;
 }
 
-/* Submit Button */
+.remember input[type="checkbox"]:focus-visible {
+    outline: 2px solid #e2b714;
+    outline-offset: 2px;
+}
+
+.forgot-link {
+    color: #8a8a8a;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.forgot-link:hover {
+    color: #e2b714;
+}
+
+/* Submit Button - Solid Accent */
 .submit-btn {
     width: 100%;
-    padding: 14px;
-    background: white;
-    color: #10367D;
+    padding: 16px;
+    background: #e2b714;
+    color: #e2e2e2; /* Light text matching the reference buttons */
     border: none;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 15px;
+    font-family: inherit;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
-    margin-top: 16px;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: lowercase;
+    letter-spacing: 1px;
 }
 
 .submit-btn:hover {
-    background: rgba(255, 255, 255, 0.95);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: #f0c522;
+    box-shadow: 0 4px 12px rgba(226, 183, 20, 0.3);
 }
 
 .submit-btn:active {
-    transform: translateY(0);
+    transform: scale(0.98);
+    background: #d4ab10;
+}
+
+.submit-btn:focus-visible {
+    outline: 3px solid #e2b714;
+    outline-offset: 3px;
 }
 
 .submit-btn:disabled {
-    background: rgba(255, 255, 255, 0.5);
+    background: #d1d1d1;
+    color: #8a8a8a;
     cursor: not-allowed;
     transform: none;
+    box-shadow: none;
 }
 
 /* Loading Spinner */
@@ -190,9 +229,9 @@ body.login {
     display: inline-block;
     width: 16px;
     height: 16px;
-    border: 2px solid rgba(16, 54, 125, 0.3);
+    border: 2px solid rgba(226, 226, 226, 0.3);
     border-radius: 50%;
-    border-top-color: #10367D;
+    border-top-color: #e2e2e2;
     animation: spin 0.6s linear infinite;
     margin-right: 8px;
     vertical-align: middle;
@@ -202,57 +241,62 @@ body.login {
     to { transform: rotate(360deg); }
 }
 
+/* Error Messages */
+.error {
+    color: #ca4754; /* Muted red that fits the theme */
+    font-size: 12px;
+    margin-top: 6px;
+    display: block;
+}
+
 /* Message Display */
 #message {
     margin-top: 24px;
-    padding: 0;
     border-radius: 8px;
     text-align: center;
 }
 
 .success-message {
-    background: rgba(165, 214, 167, 0.2);
-    color: #a5d6a7;
+    background: rgba(130, 170, 255, 0.15);
+    color: #5b8cdb;
     padding: 14px;
     border-radius: 8px;
-    border-left: 4px solid #a5d6a7;
+    border-left: 4px solid #5b8cdb;
 }
 
 .error-message {
-    background: rgba(239, 154, 154, 0.2);
-    color: #ef9a9a;
+    background: rgba(202, 71, 84, 0.15);
+    color: #ca4754;
     padding: 14px;
     border-radius: 8px;
-    border-left: 4px solid #ef9a9a;
-}
-
-/* API Key Display */
-.api-key-display {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 12px;
-    border-radius: 6px;
-    margin-top: 12px;
-    word-break: break-all;
-    font-family: 'Courier New', monospace;
-    font-size: 13px;
-    color: white;
+    border-left: 4px solid #ca4754;
 }
 
 /* Footer */
 .login-footer {
     text-align: center;
-    margin-top: 32px;
-    padding-top: 20px;
+    margin-top: 34px;
+    padding-top: 22px;
+    border-top: 2px solid #d1d1d1;
 }
 
 .login-footer a {
-    color: rgba(255, 255, 255, 0.8);
+    color: #8a8a8a;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13px;
+    transition: color 0.2s;
 }
 
 .login-footer a:hover {
-    color: white;
+    color: #5e5e5e;
+}
+
+.login-footer .accent-text {
+    color: #e2b714;
+    font-weight: 600;
+}
+
+.login-footer a:hover .accent-text {
     text-decoration: underline;
 }
 
@@ -262,17 +306,20 @@ body.login {
         padding: 20px 16px;
         align-items: flex-start;
     }
-    
+
     .login-header h2 {
-        font-size: 28px;
+        font-size: 26px;
     }
-    
-    .form-group input,
-    .form-group select {
+
+    .form-group input {
         padding: 12px 14px;
     }
-    
+
     .submit-btn {
-        padding: 12px;
+        padding: 14px;
+    }
+
+    .form-options {
+        font-size: 12px;
     }
 }

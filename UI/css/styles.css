@@ -1,114 +1,243 @@
+/* styles.css - Light Theme with #e2b714 Accent */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.mainbody {
+    font-family: 'Roboto Mono', 'Consolas', 'Courier New', monospace;
+    background: #e2e2e2; 
+    color: #5e5e5e; 
+    min-height: 100vh;
+    /* Add scroll padding so sticky navbar doesn't cover section titles */
+    scroll-padding-top: 100px; 
+}
+
+/* --- Center the Dialog --- */
+dialog {
+    /* Center it perfectly in the viewport */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    
+    padding: 30px 20px;
+    border: 2px solid #d1d1d1;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    width: 340px;
+    text-align: center;
+    background-color: #e2e2e2;
+}
+
+dialog::backdrop {
+    background-color: rgba(94, 94, 94, 0.4);
+    backdrop-filter: blur(3px);
+}
+
+/* Date Shortcuts inside Modal */
+.date-shortcuts {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.shortcut-btn {
+    background: #d1d1d1;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    color: #5e5e5e;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.shortcut-btn:hover {
+    background: #e2b714;
+    color: #e2e2e2;
+}
+
+dialog input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    background: #d1d1d1;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    font-family: inherit;
+    color: #323437;
+    font-size: 15px;
+    outline: none;
+    transition: border 0.2s ease;
+}
+
+dialog input[type="date"]:focus {
+    border-color: #e2b714;
+}
+
+#closeBtn {
+    width: 100%;
+    padding: 12px;
+    background: #e2b714;
+    color: #e2e2e2;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#closeBtn:hover {
+    background: #f0c522;
+}
+
+/* --- Main Content Layout --- */
+.content-wrapper {
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
 h1 {
-    color: #F2F7F2;
+    color: #5e5e5e;
     font-size: 28px;
     text-align: center;
-    /* display: inline-block;
-    border: 2px solid black; */
-    /* margin: 0; */
+    margin: 40px 0 20px 0;
+    font-weight: 600;
+}
+
+h1::after {
+    content: "";
+    display: block;
+    width: 56px;
+    height: 3px;
+    background: #e2b714;
+    border-radius: 10px;
+    margin: 16px auto 0;
 }
 
 h2 {
-    color: #F2F7F2;
+    color: #5e5e5e;
     font-size: 24px;
     text-align: center;
+    margin-bottom: 12px;
 }
 
 p {
-    color: #F2F7F2;
+    color: #8a8a8a;
     line-height: 1.5;
+    margin-bottom: 20px;
+    font-size: 14px;
 }
 
-.mainbody {
-    background-color: #363537;
-}
-
-/* Style the pop-up box itself */
-dialog {
-  padding: 20px;
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  width: 300px;
-  text-align: center;
-  background-color: #363537;
-}
-
-/* Style the darkened background (backdrop) */
-dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(2px);
-}
-
+/* --- Tables --- */
 table {
-        border-collapse: separate;
-        border-spacing: 20;
-        table-layout: fixed;
-        width: 100%;
-        max-width: 800px;
-        max-height: 800px;
-        align-content: center;
-        position: relative;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    th {
-        font-family: Arial, Helvetica, sans-serif;
-        padding: 10px;
-        color: #e2b714;
-        background: #2c2e31;
-        border-radius: 25px;
-        font-weight: normal;
-        font-size: 15px;
-        /* border: 1px solid #ddd; */
-    }
-    
-    td {
-        padding: 0;
-        border: none;
-        height: 60px;
-    }
-    
-    .slot {
-        display: block;
-        width: 100%;
-        height: 80px;
-        padding: 0;
-        margin: 0;
-        border: 1px solid #fff;
-        background: #FAF7EA;
-        cursor: pointer;
-        box-sizing: border-box;
-        transition: filter 0.15s;
-    }
-    
-    .slot:hover {
-        filter: brightness(0.85);
-    }
-    
-    .slot.booked { background: #f8d7da; }
-    .slot.broken { background: #fff3cd; cursor: not-allowed; }
-    .slot.mine   { background: #e2b714; }
+    border-collapse: separate;
+    border-spacing: 8px;
+    table-layout: fixed;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+th {
+    font-family: inherit;
+    padding: 12px;
+    color: #e2b714;
+    background: #d1d1d1;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    text-align: center;
+}
+
+/* Make the Table Headers Sticky */
+.sticky-header thead th {
+    position: sticky;
+    /* Position below the navbar */
+    top: 80px; 
+    z-index: 10;
+    /* Add a subtle bottom border to separate header from cells */
+    box-shadow: 0 4px 6px -4px rgba(0,0,0,0.1);
+    /* Ensure the background remains solid while scrolling */
+    background: #d1d1d1; 
+}
+
+td {
+    padding: 0;
+    border: none;
+    height: 60px;
+}
+
+.slot {
+    display: block;
+    width: 100%;
+    height: 70px;
+    padding: 0;
+    margin: 0;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: #d1d1d1;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+.slot:hover {
+    background: #c8c8c8;
+    border-color: #e2b714;
+}
+
+.slot.booked { 
+    background: #ca4754; 
+    color: white;
+    cursor: not-allowed;
+}
+.slot.broken { 
+    background: #8a8a8a; 
+    color: white;
+    cursor: not-allowed; 
+}
+.slot.mine   { 
+    background: #e2b714; 
+    color: #e2e2e2;
+}
+
+/* Submit Button */
+.submit-container {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 60px;
+}
 
 .submitBtn {
-    box-shadow: 10px;
     border: none;
-    background: #2c2e31;
-    border-radius: 15px;
-    align-content: center;
+    background: #e2b714;
+    border-radius: 8px;
     outline: none;
-    color:#e2b714;
-    font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    text-decoration:  none;
-    padding: 15px;
-    display: block;
+    color: #e2e2e2;
+    font-size: 16px;
+    font-family: inherit;
+    font-weight: 600;
+    padding: 15px 40px;
+    display: inline-block;
     text-align: center;
-    width: 300px;
-    position: relative;
-    transition: color 0.3s ease;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 1px;
 }
 
 .submitBtn:hover {
-    color: #F2F7F2;
+    background: #f0c522;
+    box-shadow: 0 4px 12px rgba(226, 183, 20, 0.3);
+}
+
+.submitBtn:active {
+    transform: scale(0.98);
 }

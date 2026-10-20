@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up · Booking Flights</title>
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Signup page specific styles -->
+    <link rel="stylesheet" href="css/signup.css">
+</head>
+<body class="signup">
+
+    <!-- Main content wrapper -->
+    <main class="main-content">
+        
+        <!-- Full-screen signup area, no card box -->
+        <div class="signup-main">
+            <div class="signup-form">
+                <!-- Header -->
+                <div class="signup-header">
+                    <h2>create account<span class="accent">.</span></h2>
+                    <p>join booking flights today</p>
+                </div>
+
+                <!-- Signup form -->
+                <form id="signup" method="POST">
+
+                    <!-- Username field -->
+                    <div class="form-group">
+                        <label for="username">username <span class="accent-dot">✧</span></label>
+                        <input 
+                            type="text" 
+                            id="username" 
+                            name="username" 
+                            placeholder="johndoe" 
+                            autocomplete="username"
+                            required
+                        >
+                        <span class="error" id="usernameError"></span>
+                    </div>
+
+                    <!-- Email field -->
+                    <div class="form-group">
+                        <label for="email">email <span class="accent-dot">✧</span></label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="you@example.com" 
+                            autocomplete="email"
+                            required
+                        >
+                        <span class="error" id="emailError"></span>
+                    </div>
+
+                    <!-- Password field -->
+                    <div class="form-group">
+                        <label for="password">password <span class="accent-dot">✧</span></label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            placeholder="••••••••" 
+                            autocomplete="new-password"
+                            required
+                        >
+                        <span class="error" id="passwordError"></span>
+                    </div>
+
+                    <!-- Submit button (accent) -->
+                    <button type="submit" class="submit-btn">
+                        sign up
+                    </button>
+                </form>
+
+                <!-- Message container -->
+                <div id="message"></div>
+
+                <!-- Footer link -->
+                <div class="signup-footer">
+                    <a href="login.php">already have an account? <span class="accent-text">sign in</span></a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Include signup JS -->
+    <script src="js/signup.js"></script>
+</body>
+</html>
