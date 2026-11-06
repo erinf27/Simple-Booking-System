@@ -44,8 +44,18 @@ function showError(elementId, message) {
 }
 
 async function submitToAPI(email, password) {
-    const { data, error } = await supbabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword
+    ({
         email: email,
         password: password
     });
+
+
+    if (error) {
+        // If credentials don't exist or match, show error
+        errorElement.textContent = error.message;
+    } else {
+        // 4. Success! Redirect to home page
+        window.location.href = "booking.html";
+    }
 }

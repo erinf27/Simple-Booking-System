@@ -1,4 +1,6 @@
-// --- Modal & Date Logic ---
+import { supabase } from '../../Server/supabase-client.js'
+import { checkSession, logout } from '../../Server/app.js'
+
 const modal = document.getElementById('popupDate');
 const openBtn = document.getElementById('dateBtn');
 const closeBtn = document.getElementById('closeBtn');
@@ -132,3 +134,7 @@ function buildGrid(tableId) {
 // Initialize both tables
 buildGrid('washing-grid');
 buildGrid('dryer-grid');
+
+function handleSignOut() {
+    
+}
