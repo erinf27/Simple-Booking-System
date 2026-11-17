@@ -9,23 +9,17 @@ document.getElementById('signup').addEventListener('submit', function(event)
     clearErrors();
     
     // Get form values
-    let name = document.getElementById('name').value.trim();
-    let surname = document.getElementById('surname').value.trim();
+    let name = document.getElementById('username').value.trim();
+    // let surname = document.getElementById('surname').value.trim();
     let email = document.getElementById('email').value.trim();
     let password = document.getElementById('password').value;
-    let type = document.getElementById('type').value;
+    // let type = document.getElementById('type').value;
     
     let isValid = true;
     
     // Validate name
     if(name === '') {
         showError('nameError', 'Name is required');
-        isValid = false;
-    }
-    
-    // Validate surname
-    if(surname === '') {
-        showError('surnameError', 'Surname is required');
         isValid = false;
     }
     
@@ -66,7 +60,7 @@ document.getElementById('signup').addEventListener('submit', function(event)
     }
     
     if(isValid) {
-        submitToAPI(name, surname, email, password, type);
+        submitToAPI(name, email, password);
     }
 });
 
@@ -79,16 +73,28 @@ function showError(elementId, message) {
     document.getElementById(elementId).innerHTML = message;
 }
 
-async function submitToAPI(name, surname, email, password, type) 
+async function submitToAPI(username, email, password) 
 {
     const {data, error} = await supabase.auth.signUp({
         email: email,
-        password: passowrd, 
+        password: password, 
         options: {
             data: {
                 username: username
             }
         }
     });
+
+    if (error) {
+    console.error('Signup failed:', error.message, error.status, error.code);
+    // Show the actual message to the user
+    alert(error.message);
+    return;
+  }
+
+  console.log('Signup succeeded:', data);
+  
 }
+
+
 
