@@ -151,6 +151,8 @@ th {
     font-weight: 600;
     font-size: 12px;
     text-align: center;
+    width: 60px;
+    font-size: 13px;
 }
 
 .sticky-header thead th {

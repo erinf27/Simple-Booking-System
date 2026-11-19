@@ -71,70 +71,107 @@ shortcutBtns.forEach(btn => {
 });
 
 
-// --- Grid Generation Logic ---
-const times = ['6:30', '7:30', '8:30', '9:30', '10:30', '11:30', '12:30', '13:30', '14:30', '15:30', '16:30', '17:30', '18:30', '19:30', '20:30'];
-const machines = 7;
+//grids
+function buildHeader(theadRowId, machines) {
+  const tr = document.getElementById(theadRowId);
+  tr.querySelectorAll('th:not(:first-child)').forEach(th => th.remove());
 
-function buildGrid(tableId) {
-    const table = document.querySelector(`#${tableId}`);
-    const tbody = table.querySelector('tbody');
-    
-    // Clear existing rows
-    tbody.innerHTML = '';
-
-    // Add the sticky corner class to the empty top-left cell in the header
-    const topLeftTh = table.querySelector('thead th');
-    if (topLeftTh) {
-        topLeftTh.classList.add('sticky-corner');
-    }
-
-    times.forEach((time, r) => {
-        const tr = document.createElement('tr');
-        
-        // 1. Create the Time label cell (Sticky Left)
-        const th = document.createElement('th');
-        th.textContent = time;
-        th.classList.add('sticky-time');
-        tr.appendChild(th);
-        
-        // 2. Create the machine slots
-        for (let c = 0; c < machines; c++) {
-            const td = document.createElement('td');
-            const btn = document.createElement('button');
-            
-            // Set base classes
-            btn.className = 'slot free';
-            
-            // Store data attributes for later use (e.g., when submitting the form)
-            btn.dataset.row = r;
-            btn.dataset.col = c;
-            btn.dataset.time = time;
-            btn.dataset.machine = `Machine ${c + 1}`; 
-            
-            td.appendChild(btn);
-            tr.appendChild(td);
-        }
-        
-        tbody.appendChild(tr);
-    });
-
-    // Event listener for clicking slots
-    table.addEventListener('click', (e) => {
-        const btn = e.target.closest('.slot');
-        if (!btn || btn.classList.contains('broken')) return;
-        
-        if (btn.classList.contains('free')) {
-            btn.className = 'slot mine';
-        } else if (btn.classList.contains('mine') || btn.classList.contains('booked')) {
-            btn.className = 'slot free';
-        }
-    });
+  machines.forEach(m => {
+    const th = document.createElement('th');
+    th.textContent = m.name.slice(-1);
+    tr.appendChild(th);
+  });
 }
 
-// Initialize both tables
-buildGrid('washing-grid');
-buildGrid('dryer-grid');
+function buildGrid(tableId, timeslots, machines) {
+  const table = document.querySelector(`#${tableId}`);
+  const tbody = table.querySelector('tbody');
+  tbody.innerHTML = '';
 
-function handleSignOut() {
+  const topLeftTh = table.querySelector('thead th');
+  if (topLeftTh) topLeftTh.classList.add('sticky-corner');
+
+  timeslots.forEach((slot) => {
+    const tr = document.createElement('tr');
+
+    const th = document.createElement('th');
+    th.textContent = slot.label.substring(0,5);
+    th.classList.add('sticky-time');
+    tr.appendChild(th);
+
+    machines.forEach((machine) => {
+      const td = document.createElement('td');
+      const btn = document.createElement('button');
+
+      btn.className = 'slot free';
+      
+      // IDs for the database
+      btn.dataset.timeslotId = slot.id;
+      btn.dataset.machineId = machine.id;
+      
+      // Labels for the UI
+      btn.dataset.timeLabel = slot.label;
+      btn.dataset.machineName = machine.name.slice(-2);
+
+      td.appendChild(btn);
+      tr.appendChild(td);
+
+      
+    });
+
+    tbody.appendChild(tr);
+  });
+}
+
+function attachSlotHandler(tableId) {
+  document.querySelector(`#${tableId}`).addEventListener('click', (e) => {
+    const btn = e.target.closest('.slot');
+    if (!btn) return;
     
+    if (btn.classList.contains('broken') || btn.classList.contains('booked')) return;
+
+    btn.className = btn.classList.contains('free') ? 'slot mine' : 'slot free';
+  });
+}
+
+
+// --- Initialization ---
+async function initGrids() {
+  const [machinesRes, timeslotsRes] = await Promise.all([
+    supabase.from('machines').select('id, name, type').order('name'), // Added 'type' here to filter
+    supabase.from('time_slots').select('id, label').eq('active', true).order('display_order')
+  ]);
+
+  if (machinesRes.error || timeslotsRes.error) {
+     console.error('Machines Error:', machinesRes.error?.message);
+    console.error('Timeslots Error:', timeslotsRes.error?.message);
+    return;
+  }
+
+  const allMachines = machinesRes.data;
+  const timeslots = timeslotsRes.data;
+// console.log("All machines from DB:", allMachines);
+
+  const washers = allMachines.filter(m => m.type === 'Washer');
+  const dryers = allMachines.filter(m => m.type === 'Dryer');
+//  console.log("Washers found:", washers);
+//   console.log("Dryers found:", dryers);
+  // Build Washing Grid
+  buildHeader('washing-head', washers);
+  buildGrid('washing-grid', timeslots, washers);
+  attachSlotHandler('washing-grid');
+
+  // Build Dryer Grid
+  buildHeader('dryer-head', dryers);
+  buildGrid('dryer-grid', timeslots, dryers);
+  attachSlotHandler('dryer-grid');
+}
+
+initGrids();
+
+
+async function handleSignOut() 
+{
+    await logout();
+    window.location.href = "login.html";
 }
