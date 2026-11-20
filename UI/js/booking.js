@@ -55,6 +55,7 @@ closeBtn.addEventListener('click', () => {
 // Listen for date input changes
 dateInput.addEventListener('change', (e) => {
     updateDateDisplay(e.target.value);
+    updateGrid();
 });
 
 // Handle Shortcuts
@@ -67,6 +68,7 @@ shortcutBtns.forEach(btn => {
         const formatted = formatDate(newDate);
         dateInput.value = formatted;
         updateDateDisplay(formatted);
+        updateGrid();
     });
 });
 
@@ -169,7 +171,8 @@ async function initGrids() {
 async function updateGrid() {
   const savedUser = sessionStorage.getItem("username");
   if (!savedUser) return;
-  console.log(savedUser)
+
+
 
   const { data: dataU, error: errorU } = await supabase
     .from('users')
@@ -186,7 +189,8 @@ async function updateGrid() {
 
   const { data: allBookings, error } = await supabase
     .from('bookings')
-    .select('machine_id, slot_id, booked_by');
+    .select('machine_id, slot_id, booked_by')
+    .eq('booking_date', dateInput.value);
 
   if (error) {
     console.error('Error fetching bookings:', error.message);
@@ -197,6 +201,8 @@ async function updateGrid() {
     button.classList.remove('mine', 'booked');
     button.disabled = false;
   });
+
+//   const todaysBookings = allBookings.filter(b => b.booking_date === dateInput.value);
 
   allBookings.forEach(booking => {
     const button = document.querySelector(
@@ -217,6 +223,21 @@ async function updateGrid() {
 
 async function init() {
   await initGrids();
+
+//   const { data, error } = await supabase
+//     .from('booking')
+//     .select('booking_date')
+
+//   if (error || !data) {
+//     console.error('Error:', errorU?.message);
+//     return;
+//   }
+
+
+//   if(dateInput == data.booking_date)
+//   {
+
+//   }
   await updateGrid();
 }
 
