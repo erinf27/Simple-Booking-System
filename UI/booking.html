@@ -13,7 +13,7 @@
             <li><button id="dateBtn">Date: <span id="currentDateDisplay">Today</span></button></li>
             <li><a href="#Washing">Washing Machines</a></li>
             <li><a href="#Drying">Dryers</a></li>
-            <li><button type="button" class="text-link-button" onclick="handleSignOut()">
+            <li><button type="button" class="text-link-button" id="signOutBtn">
                 Sign Out
             </button></li>
         </ul>
@@ -29,7 +29,7 @@
             <button type="button" class="shortcut-btn" data-offset="2">In 2 Days</button>
         </div>
 
-        <input type="date" id="bookDate" min="2026-03-01">
+        <input type="date" id="bookDate" min=today.getTime()>
         
         <div class="modal-actions">
             <button id="closeBtn">Close</button>
@@ -63,8 +63,9 @@
         </div>
 
         <div class="submit-container">
-            <button class="submitBtn" type="submit">Submit Booking</button>
+            <button class="submitBtn" type="submit" id="submitBtn">Submit Booking</button>
         </div>
+        <div id="message"></div>
     </div>
 
     <script type="module" src="js/booking.js"></script>

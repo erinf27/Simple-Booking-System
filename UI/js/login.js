@@ -52,10 +52,30 @@ async function submitToAPI(email, password) {
 
 
     if (error) {
-        // If credentials don't exist or match, show error
         errorElement.textContent = error.message;
     } else {
-        // 4. Success! Redirect to home page
-        window.location.href = "booking.html";
+    const { data: dataU, error: errorU } = await supabase
+        .from('users')
+        .select('*')
+        .eq('id', data.user.id);
+
+        console.log('Fetched user row:', dataU);
+
+    if (errorU || !dataU || dataU.length === 0) {
+        console.error('Could not read user row:', errorU?.message);
+        return;
+    }
+
+    sessionStorage.setItem("username", dataU[0].username);
+    window.location.href = "booking.html";
+        // if (errorU) {
+        // console.error('Error fetching user:', errorU.message);
+        // } else if (!dataU) {
+        // console.log('User not found');
+        // }
+        // sessionStorage.setItem("username", dataU[0].username);
+        // // const savedValue = sessionStorage.getItem("username");
+        // // console.log(savedValue);
+        // window.location.href = "booking.html";
     }
 }

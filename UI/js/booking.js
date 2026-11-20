@@ -103,20 +103,19 @@ function buildGrid(tableId, timeslots, machines) {
       const td = document.createElement('td');
       const btn = document.createElement('button');
 
-      btn.className = 'slot free';
+      btn.className = 'slot';
       
       // IDs for the database
       btn.dataset.timeslotId = slot.id;
       btn.dataset.machineId = machine.id;
       
       // Labels for the UI
-      btn.dataset.timeLabel = slot.label;
-      btn.dataset.machineName = machine.name.slice(-2);
+      btn.dataset.timeLabel = slot.label.substring(0,5);
+      btn.dataset.machineName = machine.name;
 
       td.appendChild(btn);
       tr.appendChild(td);
 
-      
     });
 
     tbody.appendChild(tr);
@@ -128,9 +127,9 @@ function attachSlotHandler(tableId) {
     const btn = e.target.closest('.slot');
     if (!btn) return;
     
-    if (btn.classList.contains('broken') || btn.classList.contains('booked')) return;
+    // if (btn.classList.contains('broken') || btn.classList.contains('booked')) return;
 
-    btn.className = btn.classList.contains('free') ? 'slot mine' : 'slot free';
+    btn.className = btn.classList.contains('mine') ? 'slot' : 'slot mine';
   });
 }
 
@@ -167,11 +166,142 @@ async function initGrids() {
   attachSlotHandler('dryer-grid');
 }
 
-initGrids();
+async function updateGrid() {
+  const savedUser = sessionStorage.getItem("username");
+  if (!savedUser) return;
+  console.log(savedUser)
 
+  const { data: dataU, error: errorU } = await supabase
+    .from('users')
+    .select('id')
+    .eq('username', savedUser)
+    .single();
 
-async function handleSignOut() 
-{
-    await logout();
-    window.location.href = "login.html";
+  if (errorU || !dataU) {
+    console.error('Error fetching user:', errorU?.message);
+    return;
+  }
+
+  const userId = dataU.id;
+
+  const { data: allBookings, error } = await supabase
+    .from('bookings')
+    .select('machine_id, slot_id, booked_by');
+
+  if (error) {
+    console.error('Error fetching bookings:', error.message);
+    return;
+  }
+
+  document.querySelectorAll('.slot').forEach(button => {
+    button.classList.remove('mine', 'booked');
+    button.disabled = false;
+  });
+
+  allBookings.forEach(booking => {
+    const button = document.querySelector(
+      `.slot[data-machine-id="${booking.machine_id}"][data-timeslot-id="${booking.slot_id}"]`
+    );
+
+    if (button) {
+      if (booking.booked_by === userId) {
+        button.classList.add('mine');
+        button.disabled = true;
+      } else {
+        button.classList.add('booked');
+        button.disabled = true;
+      }
+    }
+  });
 }
+
+async function init() {
+  await initGrids();
+  await updateGrid();
+}
+
+init();
+
+
+document.getElementById('signOutBtn')
+    .addEventListener('click', handleSignOut);
+
+async function handleSignOut() {
+    try {
+        await logout();
+    } catch (err) {
+        console.error('Logout failed:', err);
+    } finally {
+        sessionStorage.clear();
+        window.location.replace('login.html');
+    }
+}
+
+submitBtn.addEventListener('click', async () => {
+    const selectedButtons = Array.from(document.querySelectorAll('.slot.mine'));
+
+    if (selectedButtons.length === 0) {
+        alert("Please select at least one Washer or Dryer slot.");
+        return;
+    }
+
+    // separate Washers and Dryers
+    const washers = selectedButtons.filter(btn => btn.dataset.machineName.includes("Washer"));
+    const dryers  = selectedButtons.filter(btn => btn.dataset.machineName.includes("Dryer"));
+
+    if (washers.length > 3 || dryers.length > 3) {
+        alert("You can only book up to 3 Washers and 3 Dryers.");
+        return;
+    }
+
+    const firstWasherTime = washers[0]?.dataset.timeLabel;
+    if (!washers.every(btn => btn.dataset.timeLabel === firstWasherTime)) {
+        alert("All selected Washers must be booked in the same time slot.");
+        return;
+    }
+
+    const firstDryerTime = dryers[0]?.dataset.timeLabel;
+    if (!dryers.every(btn => btn.dataset.timeLabel === firstDryerTime)) {
+        alert("All selected Dryers must be booked in the same time slot.");
+        return;
+    }
+
+    const savedUser = sessionStorage.getItem("username");
+    console.log(savedUser);
+    console.log("Username from sessionStorage:", savedUser);
+    const { data: dataU, error: errorU } = await supabase
+        .from('users')
+        .select('*')
+        .eq('username', savedUser);
+    if (errorU) {
+        console.error('Error fetching user:', errorU.message); 
+        return;
+    } 
+    if (!dataU || dataU.length === 0) {
+        console.log('User not found');
+        return; 
+    }
+    const userId = dataU[0].id; 
+
+    const bookingsToInsert = selectedButtons.map((button) => ({
+        machine_id: button.dataset.machineId,
+        slot_id: button.dataset.timeslotId,
+        booked_by: userId, 
+        booking_date: dateInput.value,
+        status: 'Booked',
+        created_at: new Date().toISOString()
+    }));
+
+    const { data, error } = await supabase
+        .from('bookings')
+        .insert(bookingsToInsert);
+
+    if (error) {
+        console.error('Error saving booking:', error.message);
+        alert("There was an error saving your booking. Please try again.");
+    } else {
+        alert("Booking successful!");
+        updateGrid();
+        window.location.reload(); 
+    }
+});
