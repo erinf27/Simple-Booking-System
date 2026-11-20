@@ -3,85 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login · Booking Flights</title>
+    <title>Welcome · Booking Flights</title>
     <!-- Main stylesheet (accent: #e2b714) -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/UI/css/styles.css">
     <!-- Login page specific styles -->
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="/UI/css/login.css">
 </head>
 <body class="login">
 
     <!-- Main content wrapper -->
     <main class="main-content">
-        
+
         <!-- Full-screen login area, no card box -->
         <div class="login-main">
             <div class="login-form">
-                <!-- Header -->
+                
+                <!-- Header (matches screenshot exactly) -->
                 <div class="login-header">
-                    <h2>Welcome<span class="accent">.</span></h2>
-                    <p>Login to Book Laundry</p>
+                    <h2>House Nala<span class="accent">.</span></h2>
+                    <p>Laundry Booking</p>
                 </div>
 
-                <!-- Login form -->
-                <form id="login" method="POST">
+                <!-- Action Buttons -->
+                <!-- Sign In button (solid accent) -->
+                <a href="/UI/login.html" class="submit-btn" style="text-decoration: none;">
+                    log in
+                </a>
 
-                    <!-- Email field -->
-                    <div class="form-group">
-                        <label for="email">email <span class="accent-dot">✧</span></label>
-                        <input 
-                            type="email" 
-                            id="email" 
-                            name="email" 
-                            placeholder="you@example.com" 
-                            autocomplete="email"
-                            required
-                        >
-                        <span class="error" id="emailError"></span>
-                    </div>
+                <!-- Sign Up button (outline accent, reusing submit-btn structure) -->
+                <a href="/UI/signup.html" class="submit-btn" style="
+                    text-decoration: none;
+                    background: transparent;
+                    border: 2px solid #e2b714;
+                    color: #e2b714;
+                    margin-top: 16px;
+                ">
+                    sign up
+                </a>
 
-                    <!-- Password field -->
-                    <div class="form-group">
-                        <label for="password">password <span class="accent-dot">✧</span></label>
-                        <input 
-                            type="password" 
-                            id="password" 
-                            name="password" 
-                            placeholder="••••••••" 
-                            autocomplete="current-password"
-                            required
-                        >
-                        <span class="error" id="passwordError"></span>
-                    </div>
-
-                    <!-- Remember me / forgot password row -->
-                    <div class="form-options">
-                        <label class="remember">
-                            <input type="checkbox" name="remember" checked>
-                            <span>remember me</span>
-                        </label>
-                        <a href="#" class="forgot-link">forgot password?</a>
-                    </div>
-
-                    <!-- Submit button (accent) -->
-                    <button type="submit" class="submit-btn">
-                        sign in
-                    </button>
-                </form>
-
-                <!-- Message container -->
-                <div id="message"></div>
-
-                <!-- Footer link -->
-                <div class="login-footer">
-                    <a href="signup.html">don't have an account? <span class="accent-text">create one</span></a>
-                </div>
             </div>
         </div>
 
     </main>
 
-    <!-- Include login JS -->
-    <script type="module" src="js/login.js"></script>
 </body>
 </html>
